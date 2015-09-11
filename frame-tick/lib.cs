@@ -31,6 +31,7 @@ if (!isObject(FrameTickCtrl))
     new GuiControl(FrameTickGui)
     {
         profile = "GuiDefaultProfile";
+        noCursor = true;
 
         new GuiConsoleTextCtrl(FrameTickCtrl)
         {
