@@ -2,6 +2,7 @@
 //
 // Call addFrameTick with a function name to call on every frame
 // This function should return true when it wants to stop running (false otherwise)
+// The function will be called with the amount of seconds that elapsed since the last frame
 
 function addFrameTick(%func)
 {
@@ -10,9 +11,12 @@ function addFrameTick(%func)
 
 function doFrameTick()
 {
+    %dt = $Sim::Time - $LastFrameTickTime;
+    $LastFrameTickTime = $Sim::Time;
+
     for (%i = $FrameTickMax; %i >= 1; %i--)
     {
-        if (call($FrameTickEntry[%i]))
+        if (call($FrameTickEntry[%i], %dt))
         {
             $FrameTickEntry[%i] = "";
             $FrameTickMax--;
