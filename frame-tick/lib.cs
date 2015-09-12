@@ -4,9 +4,10 @@
 // This function should return true when it wants to stop running (false otherwise)
 // The function will be called with the amount of seconds that elapsed since the last frame
 
-function addFrameTick(%func)
+function addFrameTick(%func, %data)
 {
-    $FrameTickEntry[$FrameTickMax++] = %func;
+    $FrameTickFunc[$FrameTickMax++] = %func;
+    $FrameTickData[$FrameTickMax] = %data;
 }
 
 function doFrameTick()
@@ -16,9 +17,10 @@ function doFrameTick()
 
     for (%i = $FrameTickMax; %i >= 1; %i--)
     {
-        if (call($FrameTickEntry[%i], %dt))
+        if (call($FrameTickFunc[%i], $FrameTickData[%i], %dt))
         {
-            $FrameTickEntry[%i] = "";
+            $FrameTickFunc[%i] = "";
+            $FrameTickData[%i] = "";
             $FrameTickMax--;
         }
     }
