@@ -2,7 +2,10 @@
 //
 // Call addFrameTick with a function name to call on every frame
 // This function should return true when it wants to stop running (false otherwise)
-// The function will be called with the amount of seconds that elapsed since the last frame
+// You can pass a second argument to addFrameTick which will be passed along to the function.
+//
+// The function will also be passed some arbitrary number. It's supposed to be the
+// amount of seconds that elapsed since the last frame but it usually isn't.
 
 function addFrameTick(%func, %data)
 {
