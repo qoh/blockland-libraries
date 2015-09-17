@@ -28,29 +28,23 @@ function doFrameTick()
     return "";
 }
 
-if (!isObject(FrameTickCtrl))
+if (!isObject(FrameTickGui))
 {
     new GuiControl(FrameTickGui)
     {
         profile = "GuiModelessDialogProfile";
         noCursor = true;
-
-        new GuiConsoleTextCtrl(FrameTickCtrl)
+    
+        new GuiConsoleTextCtrl()
         {
             profile = "GuiTextProfile";
             position = "-1 -1";
             minExtent = "0 0";
             extent = "0 0";
-
+    
             expression = "doFrameTick()";
         };
     };
-
-    if (isObject(Canvas))
-    {
-        Canvas.add(FrameTickGui);
-        Canvas.bringToFront(FrameTickGui);
-    }
 }
 
 package FrameTickPackage
@@ -60,10 +54,14 @@ package FrameTickPackage
         Parent::setContent(%this, %control);
 
         if (!isObject(%control) || %control.getID() != FrameTickGui.getID())
-        {
-            %this.add(FrameTickGui);
-            %this.bringToFront(FrameTickGui);
-        }
+            %this.pushDialog(FrameTickGui);
+    }
+
+    function scrollInventory(%value)
+    {
+        Canvas.popDialog(FrameTickGui);
+        Parent::scrollInventory(%value);
+        Canvas.pushDialog(FrameTickGui);
     }
 };
 
