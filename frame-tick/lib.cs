@@ -54,14 +54,16 @@ package FrameTickPackage
         Parent::setContent(%this, %control);
 
         if (!isObject(%control) || %control.getID() != FrameTickGui.getID())
-            %this.pushDialog(FrameTickGui);
+            %this.add(FrameTickGui);
     }
 
     function scrollInventory(%value)
     {
-        Canvas.popDialog(FrameTickGui);
+        %name = "FrameTickGui";
+        %id = nameToID(%name);
+        %id.setName("FrameOverlayGui");
         Parent::scrollInventory(%value);
-        Canvas.pushDialog(FrameTickGui);
+        %id.setName(%name);
     }
 };
 
